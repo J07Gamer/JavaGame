@@ -1,0 +1,134 @@
+class GameSettings
+    
+    //Variables
+    rdm = RandomNumberGenerator
+    enemyUnits ← "Soldier", "Sergeant", "Captain", "Admiral", "Gunner", "Officer", "Agent"
+    
+    EnemyHealth set 100
+    EnemyAttack set 30
+    
+    MonsterHealth set 150
+    MonsterAttack set 50
+    MonsterRegenPoints set 2 //How many times the Monster can regenerate
+    MonsterRegenAmount set 30 //How much the Monster Heals for
+    MonsterRegenGet set 65 //Percentage of the Monster recovering health
+    
+    RandomizeEnemyHealth 
+        Enemy Health is randomized between 100 to 1
+        return the EnemyHealth
+    
+    RandomizeEnemyAttack 
+        Enemy Attack is randomized between 30 to 1
+        return the EnemyAttack
+    
+    RandomizeMonsterAttack 
+        Monster Attack is randomized between 50 to 1
+        return the MonsterAttack
+    
+endclass
+
+class MainGame
+
+    EnemyKilled to 0
+    
+    PROGRAM 
+ 
+        set boolean running to True
+        declare userinput sc for scanner
+        declare GameSettings as gs 
+        
+        print "welcome to the game"
+        print "you are monster, kill enemies, overtake the ship"
+ 
+        while running is set to true
+            do
+            call RandomizeEnemyHealth
+            str enemy to call enemyUnits that randomizes enemies you fight
+            print "you came across an" enemy
+            
+            while RandomizeEnemyHealth is greater than 0
+                do
+                print MonsterHealth
+                print enemy and EnemyHealth
+                print "what will you do"
+                print "1 attack"
+                print "2 regen"
+                print "3 flee"
+                
+                if user puts 1 {
+                    the user and the enemy fight each other, takes away both health
+		
+                    print "you hit the enemy for" DamageDealt
+                    print "You took " DamageTaken
+                  }  
+
+                if MonsterHealth less than 1 {
+                        print "you too weak to fight"
+                        stop the loop
+                  }
+                else if user puts 2 {
+
+                     if MonsterHealth is equal to 150
+                        print "no more regen for you"
+                        }
+
+                    else if MonsterRegenPoints is greater than 0 {
+                        Monster gets healed by MonsterRegenAmount
+                        Takes away 1 MonsterRegenPoints
+                        print "you heal"
+                    }
+
+                    else {
+                        print "you cannot heal"
+                        }
+
+                else if user puts 3 {
+                    print "you run away from enemy"
+                    you find a new enemy
+                    }
+
+                else {
+                    print "not viable"
+                    }
+
+                if MonsterHealth less than 1
+                    print "you died"
+                    stop the loop
+                    
+                Add 1 to EnemyKilled
+                
+                print "You killed the enemy"
+                print EnemyKilled
+                
+                if rdm generates a random number up to 100 that is > MonsterRegenGet
+                    Add 1 point to MonsterRegenPoints
+                    print "you get a regenpoint"
+                    
+                print "what will you do"
+                print "1 keep fighting, 2 win"
+                
+                user is set to sc next int 
+                
+                if user puts 1
+                    print "you keep fighting"
+                    
+                else if user puts 2 and has killed 5 EnemyKilled
+                    print "you win"
+                    stops the loop
+                
+                else 
+                    print "you need to kill more enemies"
+                    
+            Endwhile
+        Endwhile
+        
+        print "Thanks for playing"
+        
+        close the scanner which is sc
+        
+endclass
+
+
+
+
+
